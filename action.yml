@@ -1,0 +1,24 @@
+name: 'Docker Deploy Action'
+description: 'Deploy your Docker image using SSH key-based authentication'
+
+inputs:
+    SSH_USERNAME:
+        description: 'SSH username for authentication'
+        required: true
+    SSH_KEY:
+        description: 'SSH key for authentication'
+        required: true
+    REMOTE_HOST:
+        description: 'SSH host for deployment'
+        required: true
+    command:
+        description: 'Command to run on the remote host'
+        required: true
+
+runs:
+    using: docker
+    image: Dockerfile
+
+branding:
+    icon: 'upload-cloud'
+    color: 'blue'
