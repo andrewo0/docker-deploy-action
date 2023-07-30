@@ -25,7 +25,7 @@ login_with_key() {
   chmod 644 ~/.ssh/id_rsa.pub
   eval "$(ssh-agent -s)"
   ssh-add ~/.ssh/id_rsa.pub
-  ssh -o StrictHostKeyChecking=no "$INPUT_SSH_USERNAME"@"$INPUT_REMOTE_HOST" "$@"
+  ssh -o StrictHostKeyChecking=no "$INPUT_SSH_USERNAME"@"$INPUT_REMOTE_HOST" -p "$INPUT_PORT" "$@"
 }
 
 if [ -n "$INPUT_SSH_PRIVATE_KEY" ]; then
