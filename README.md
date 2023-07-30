@@ -9,8 +9,8 @@ Authenticate using private key:
   uses: sagebind/docker-swarm-deploy-action@v2
   with:
     remote_host: ssh://user@myswarm.com
-    ssh_username: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
-    ssh_private_key: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
+    ssh_username: ${{ secrets.SSH_USERNAME
+    ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
 ```
 
 Authenticate using username and password:
@@ -20,8 +20,8 @@ Authenticate using username and password:
   uses: sagebind/docker-swarm-deploy-action@v2
   with:
     remote_host: ssh://user@myswarm.com
-    ssh_username: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
-    ssh_password: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
+    ssh_username: ${{ secrets.SSH_USERNAME}}
+    ssh_password: ${{ secrets.SSH_PASSWORD }}
 ```
 
 ## License
