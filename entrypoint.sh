@@ -12,9 +12,14 @@ if [ -z "$INPUT_SSH_USERNAME" ]; then
     exit 1
 fi
 
+if [ -z "$INPUT_PORT" ]; then
+    echo "Input port is required!"
+    exit 1
+fi
+
 login_with_password() {
   echo "Logging in with password..."
-  sshpass -p "$INPUT_SSH_PASSWORD" ssh -o StrictHostKeyChecking=no "$INPUT_SSH_USERNAME"@"$INPUT_REMOTE_HOST" "$@"
+  sshpass -p "$INPUT_SSH_PASSWORD" ssh -o StrictHostKeyChecking=no "$INPUT_SSH_USERNAME"@"$INPUT_REMOTE_HOST" -p "$INPUT_PORT" "$@"
 }
 
 login_with_key() {
