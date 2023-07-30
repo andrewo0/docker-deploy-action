@@ -21,7 +21,7 @@ Authenticate using username and password:
   with:
     remote_host: ssh://user@myswarm.com
     ssh_username: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
-    ssh_private_key: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
+    ssh_password: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
 ```
 
 ## License
