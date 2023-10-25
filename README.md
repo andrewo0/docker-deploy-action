@@ -9,6 +9,10 @@
     host: ${{ vars.SSH_HOST}}
     user: ${{ secrets.SSH_USERNAME}}
     pass: ${{ secrets.SSH_PASSWORD }}
+    port: ${{ secrets.ssh_PORT }}
+    connect_timeout: 30s
+    script: |
+      echo 'Hello World'
 ```
 
 ## License
