@@ -1,3 +1,4 @@
+import sys
 from os import environ, path
 import paramiko
 import math
@@ -24,16 +25,21 @@ def convert_to_seconds(s):
 
 def concatenate_commands(commands):
     command_str = ""
-    add_and = False
+    multiline = False  # Flag to indicate if the current command spans multiple lines
+
     for command_line in commands:
-        if command_line.endswith('\\'):
-            command_str += command_line[:-1]
-            add_and = True
+        if not command_line.endswith('\\'):
+            # If the line doesn't end with '\', add '&&' between commands
+            if multiline:
+                command_str += command_line  # Add the current line to the existing multiline command
+                multiline = False  # Reset the multiline flag
+            else:
+                command_str += f"{command_line} && "
         else:
-            if add_and:
-                command_str += ' && '
-                add_and = False
-            command_str += command_line
+            # If the line ends with '\', concatenate it with the previous line (multiline command)
+            command_str += command_line[:-1]  # Remove '\' at the end
+            multiline = True  # Set the multiline flag
+
     return command_str
 
 
@@ -48,9 +54,9 @@ def ssh_process():
 
     if INPUT_SCRIPT is None or INPUT_SCRIPT == "" or (INPUT_KEY is None and INPUT_PASS is None):
         print("SSH invalid (Script/Key/Passwd)")
-        return
+        sys.exit(1)  # Exit with a non-zero status code to indicate an error
 
-    print("+++++++++++++++++++ RUNNING deploy +++++++++++++++++++")
+    print("+++++++++++++++++++Pipeline: RUNNING SSH+++++++++++++++++++")
 
     commands = [c.strip() for c in INPUT_SCRIPT.splitlines() if c is not None]
     command_str = concatenate_commands(commands)
@@ -82,6 +88,7 @@ def ssh_process():
                     raise Exception(err)
                 else:
                     print(f"Error: \n{err}")
+                    sys.exit(1)  # Exit with a non-zero status code to indicate an error
         finally:
             os.unlink(tmp.name)
             tmp.close()
