@@ -1,26 +1,30 @@
 name: 'Docker Deploy Action'
 description: 'Deploy your Docker image using username password or SSH key-based authentication'
+author: 'Andrew Osenga'
 
 inputs:
-    remote_host:
-        description: 'SSH host for deployment'
+    host:
+        description: 'ssh remote host'
         required: true
-    ssh_port:
-        description: 'Port for key-scanning the server'
+    port:
+        description: 'ssh remote port'
+        default: 22
+    user:
+        description: 'ssh remote user'
+        required: true
+    key:
+        description: 'content of ssh private key. ex raw content of ~/.ssh/id_rsa'
         required: false
-        default: '22'
-    ssh_username:
-        description: 'SSH username for authentication'
-        required: true
-    ssh_password:
-        description: 'SSH password for deployment'
-        required: true
-    ssh_private_key:
-        description: 'SSH private key for authentication'
-        required: true
-    command:
-        description: 'Command to run on the remote host'
-        required: true
+    pass:
+        description: 'ssh remote password'
+        required: false
+    connect_timeout:
+        description: 'connection timeout to remote host'
+        default: "30s"
+        required: false
+    script:
+        description: 'execute commands on ssh'
+        required: false
 
 runs:
     using: docker
